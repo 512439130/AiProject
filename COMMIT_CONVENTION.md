@@ -1,164 +1,180 @@
-# 代码提交规范 (Commit Convention)
+# Commit Convention
 
-## 概述
+## Overview
 
-本文档定义了本项目的 Git 提交信息规范，旨在：
-- 生成清晰的变更历史
-- 便于自动化生成 Changelog
-- 使代码审查更高效
+This document defines the Git commit message conventions for this project to:
+- Generate clear change history
+- Facilitate automated Changelog generation
+- Make code reviews more efficient
 
-## 提交格式
+## Commit Format
 
-每个提交信息包含以下结构：
+Each commit message consists of the following structure:
 
 ```
-<type>(<scope>): <subject>
+<type>(<scope>): <subject>.
 
 <body>
 
 <footer>
 ```
 
-- **type** (必需): 提交类型
-- **scope** (可选): 影响范围
-- **subject** (必需): 简短描述
-- **body** (可选): 详细描述
-- **footer** (可选): 脚注信息
+- **type** (required): Commit type
+- **scope** (optional): Scope of impact
+- **subject** (required): Brief description, ending with a period
+- **body** (optional): Detailed description
+- **footer** (optional): Footer information
 
-## 提交类型 (Type)
+**Note**: A space is required after the colon.
 
-| 类型 | 说明 | 示例 |
-|------|------|------|
-| `feat` | 新功能 | `feat(login): 添加手机号验证码登录` |
-| `fix` | Bug 修复 | `fix(order): 修复订单列表刷新异常` |
-| `docs` | 文档更新 | `docs(readme): 更新构建说明` |
-| `style` | 代码格式（不影响代码含义）| `style: 统一缩进为4个空格` |
-| `refactor` | 代码重构 | `refactor(user): 重构用户存储逻辑` |
-| `perf` | 性能优化 | `perf(list): 优化列表滑动流畅度` |
-| `test` | 测试相关 | `test(login): 添加登录单元测试` |
-| `chore` | 构建/工具变动 | `chore(gradle): 升级AGP到8.13.0` |
-| `revert` | 回滚提交 | `revert: 回滚feat: xxx` |
+## Commit Types
 
-## 影响范围 (Scope)
+| Type | Description | Example |
+|------|-------------|---------|
+| `feature` | New feature | `feature: add phone verification login.` |
+| `fix` | Bug fix | `fix: resolve order list refresh issue.` |
+| `docs` | Documentation update | `docs: update build instructions.` |
+| `refactor` | Code refactoring | `refactor: restructure user storage logic.` |
+| `perf` | Performance improvement | `perf: optimize list scrolling smoothness.` |
+| `model` | Data model changes | `model: add order status enum.` |
+| `data` | Data layer changes | `data: migrate to new api response format.` |
+| `prod` | Production configuration | `prod: update release signing config.` |
 
-用于说明提交影响的模块或组件，可选但建议使用：
+## Scope
 
-| 范围 | 说明 |
-|------|------|
-| `app` | 整体应用级别 |
-| `login` | 登录模块 |
-| `order` | 订单模块 |
-| `profile` | 个人中心模块 |
-| `nav` | 导航相关 |
-| `ui` | UI/布局相关 |
-| `data` | 数据/存储相关 |
-| `build` | 构建配置 |
-| `deps` | 依赖更新 |
+Used to indicate the affected module or component:
 
-## 主题描述 (Subject)
+| Scope | Description |
+|-------|-------------|
+| `app` | Application-wide changes |
+| `login` | Login module |
+| `order` | Order module |
+| `profile` | Profile module |
+| `nav` | Navigation related |
+| `ui` | UI/Layout related |
+| `data` | Data/Storage related |
+| `build` | Build configuration |
+| `deps` | Dependency updates |
+| `readme` | README documentation |
 
-- 使用**动词开头**，第一人称现在时（"change" 而非 "changed"/"changes"）
-- 首字母**不要**大写
-- 末尾**不加**句号或其他标点
-- 不超过 50 个字符
+## Subject
 
-**良好示例:**
-- `feat(login): 添加国家码选择器`
-- `fix(order): 修复订单详情展开崩溃`
+- Start with a **verb** in present tense ("add" not "added"/"adds")
+- Do not capitalize the first letter
+- Must end with a **period**
+- No more than 50 characters (excluding period)
+- A space after the colon is **required**
 
-**不良示例:**
-- `feat: Added new feature` (过去时，英文)
-- `fix:修复bug.` (格式不规范，有句号)
+**Good Examples:**
+- `feature: add country code selector.`
+- `fix: resolve order detail crash.`
+- `docs: update architecture documentation.`
+- `refactor(login): extract validation logic.`
 
-## 正文 (Body)
+**Bad Examples:**
+- `feature:add new feature.` (missing space after colon)
+- `fix: resolve crash` (missing period)
+- `Docs: update readme.` (capitalized first letter)
+- `fix:修复崩溃问题.` (Chinese description)
 
-当需要详细说明时使用：
+## Body
 
-- 说明**为什么**做这次修改（动机）
-- 与之前行为的**对比**
-- 每行不超过 72 个字符
-- 使用空行分隔段落
+Use when detailed explanation is needed:
 
-示例：
+- Explain **why** the change was made (motivation)
+- Contrast with previous behavior
+- No more than 72 characters per line
+- Use blank lines to separate paragraphs
+
+Example:
 ```
-fix(order): 修复订单列表数据重复问题
+fix: resolve duplicate data in order list.
 
-订单列表在快速下拉刷新时，由于异步请求未取消，
-导致旧数据与新数据同时返回，出现重复项。
+When quickly pulling down to refresh, async requests were not cancelled,
+causing old and new data to return simultaneously, resulting in duplicates.
 
-现在会在发起新请求前取消未完成的请求。
-```
-
-## 脚注 (Footer)
-
-用于引用 Issue 或 Breaking Changes：
-
-```
-Closes #123, #456
-
-BREAKING CHANGE: 登录接口返回值结构变更
+Now pending requests are cancelled before initiating new ones.
 ```
 
-## 完整示例
+## Footer
+
+Used for referencing Issues or Breaking Changes:
 
 ```
-feat(login): 实现手机号验证码登录功能
+Closes #123, #456.
 
-- 添加手机号格式校验
-- 集成短信验证码发送接口
-- 添加60秒倒计时功能
+BREAKING CHANGE: login api response structure changed.
+```
 
-Closes #15
+## Complete Examples
+
+```
+feature: implement phone verification login.
+
+- Add phone number format validation.
+- Integrate sms verification code api.
+- Add 60-second countdown feature.
+
+Closes #15.
 ```
 
 ```
-refactor(data): 将 SharedPreferences 封装为 Repository 模式
+refactor: encapsulate SharedPreferences as Repository pattern.
 
-将 UserStorage 从单例对象改为 UserRepository 接口实现，
-便于后续支持多种存储方式（DataStore、Room等）。
+Change UserStorage from singleton object to UserRepository interface,
+to support multiple storage methods (DataStore, Room, etc.) in the future.
 
-BREAKING CHANGE: UserStorage 已废弃，请使用 UserRepository
+BREAKING CHANGE: UserStorage is deprecated, use UserRepository instead.
 ```
 
-## Android 项目特殊规范
+## Android Project Specific
 
-### 资源文件修改
+### Resource File Changes
 ```
-style(ui): 调整登录页面按钮样式
+feature(ui): add rounded button background.
 
-添加圆角背景和渐变色，适配深色模式。
-```
-
-### 布局修改
-```
-fix(layout): 修复小屏设备登录页面被遮挡
-
-使用 ConstraintLayout 替换 LinearLayout 嵌套，
-支持键盘弹出时自动调整布局。
+Add corner radius and gradient color, support dark mode.
 ```
 
-### 依赖更新
+### Layout Changes
 ```
-chore(deps): 升级 Navigation 组件到 2.8.0
+fix: resolve login page overflow on small screens.
 
-- androidx.navigation:navigation-fragment-ktx: 2.7.7 -> 2.8.0
-- androidx.navigation:navigation-ui-ktx: 2.7.7 -> 2.8.0
+Replace LinearLayout nesting with ConstraintLayout,
+support automatic layout adjustment when keyboard appears.
 ```
 
-## 提交前检查清单
+### Dependency Updates
+```
+feature(deps): upgrade navigation component to 2.8.0.
 
-- [ ] 提交信息遵循上述格式
-- [ ] 使用正确的 type 和 scope
-- [ ] subject 清晰描述了变更内容
-- [ ] 代码已本地测试通过
-- [ ] 相关单元测试已更新/通过
+- androidx.navigation:navigation-fragment-ktx: 2.7.7 -> 2.8.0.
+- androidx.navigation:navigation-ui-ktx: 2.7.7 -> 2.8.0.
+```
 
-## 工具推荐
+## Pre-Commit Checklist
 
-- **Android Studio**: 使用 Git Commit Template 插件
-- **命令行**: 使用 `git commit -m "type(scope): subject"`
-- **提交钩子**: 可配置 commit-msg hook 自动校验格式
+- [ ] Commit message follows the format above
+- [ ] Space after colon is included
+- [ ] Subject ends with a period
+- [ ] English description is used
+- [ ] Correct type and scope are used
+- [ ] Subject clearly describes the change
+- [ ] Code is tested locally
+- [ ] Related unit tests are updated/passed
+
+## Quick Reference
+
+```bash
+# Format
+git commit -m "type(scope): subject."
+
+# Examples
+git commit -m "feature: add splash screen."
+git commit -m "fix(login): resolve input validation bug."
+git commit -m "docs: update commit convention."
+```
 
 ---
 
-*规范参考: [Conventional Commits](https://www.conventionalcommits.org/)*
+*Reference: [Conventional Commits](https://www.conventionalcommits.org/)*
