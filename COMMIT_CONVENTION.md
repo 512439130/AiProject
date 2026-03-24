@@ -162,6 +162,22 @@ feature(deps): upgrade navigation component to 2.8.0.
 - [ ] Subject clearly describes the change
 - [ ] Code is tested locally
 - [ ] Related unit tests are updated/passed
+- [ ] Changes reviewed with Claude Code
+
+## Review Workflow
+
+### Pre-commit Review
+Before creating a git commit:
+1. Review code changes with Claude Code
+2. Confirm commit message format meets conventions
+3. Get approval before executing `git commit`
+
+### Pre-push Review
+Before pushing to remote repository:
+1. Confirm all commits are ready for sharing
+2. Get approval before executing `git push`
+
+This workflow ensures code quality and prevents accidental commits/pushes.
 
 ## Quick Reference
 
